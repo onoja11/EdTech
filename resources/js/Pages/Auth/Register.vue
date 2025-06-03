@@ -9,9 +9,14 @@ import { Head, Link, useForm } from '@inertiajs/vue3';
 const form = useForm({
     name: '',
     email: '',
+    department: '',
+    level: '',
     password: '',
     password_confirmation: '',
 });
+defineProps({
+    levels:Array,
+})
 
 const submit = () => {
     form.post(route('register'), {
@@ -56,6 +61,39 @@ const submit = () => {
                 <InputError class="mt-2" :message="form.errors.email" />
             </div>
 
+            <!-- department -->
+              <div class="mt-4">
+                <InputLabel for="department" value="Department" />
+
+                <TextInput
+                    id="department"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.department"
+                    required
+                />
+
+                <InputError class="mt-2" :message="form.errors.department" />
+            </div>
+            
+            <!-- level -->
+              <div class="mt-4">
+                <InputLabel for="level" value="Level" />
+
+                <!-- <TextInput
+                    id="level"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.level"
+                    required
+                /> -->
+                <select type="text" id="level" class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" v-model="form.level">
+                    <option></option>
+                    <option v-for="level in levels" :value="level">{{ level }}</option>
+                </select>
+
+                <InputError class="mt-2" :message="form.errors.department" />
+            </div>
             <div class="mt-4">
                 <InputLabel for="password" value="Password" />
 

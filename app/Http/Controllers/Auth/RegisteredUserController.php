@@ -20,7 +20,10 @@ class RegisteredUserController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('Auth/Register');
+        $levels = ['100','200','300','400','500'];
+        return Inertia::render('Auth/Register',[
+            'levels' => $levels,
+        ]);
     }
 
     /**
@@ -34,12 +37,16 @@ class RegisteredUserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'level' => 'required|string',
+            'department' => 'required|string'
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'level' => $request->level,
+            'department' => $request->department
         ]);
 
         event(new Registered($user));

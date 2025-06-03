@@ -48,7 +48,7 @@ defineProps({
         <div
           v-for="lesson in lessons"
           :key="lesson.id"
-          class="bg-gradient-to-br from-blue-500 to-blue-700 text-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer h-64 w-full"
+          class="bg-gradient-to-br from-gray-500 to-gray-700 text-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer h-64 w-full"
         >
           <a :href="`/lessons/${lesson.id}`" class="block h-full p-6">
             <div class="flex flex-col justify-center items-center h-full">
@@ -56,9 +56,9 @@ defineProps({
                 <i class="fa-solid fa-book fa-2x"></i>
               </div>
               <h2 class="text-xl font-semibold text-center">{{ lesson.title }}</h2>
-              <!-- <p class="mt-2 text-sm text-blue-200 text-center">
-                {{ lesson.content }}
-              </p> -->
+              <p class="mt-2 text-sm text-blue-200 text-center">
+                {{ lesson.subject }}
+              </p>
             </div>
           </a>
         </div>

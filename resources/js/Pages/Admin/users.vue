@@ -25,14 +25,16 @@ defineProps({
     </div>
 
     <!-- Users Table -->
-    <div class="p-4 overflow-x-auto">
-      <table class="min-w-full bg-white border text-left">
+    <div class="p-4 overflow-x-auto  mx-4">
+      <table class="min-w-full bg-white border shadow text-left">
         <thead>
           <tr>
             <th class="px-4 py-2 border">ID</th>
             <th class="px-4 py-2 border">Name</th>
             <th class="px-4 py-2 border">Email</th>
             <th class="px-4 py-2 border">Role</th>
+            <th class="px-4 py-2 border">Department</th>
+            <th class="px-4 py-2 border">Level</th>
             <th class="px-4 py-2 border text-center">Actions</th>
           </tr>
         </thead>
@@ -42,6 +44,8 @@ defineProps({
             <td class="px-4 py-2 border">{{ user.name }}</td>
             <td class="px-4 py-2 border">{{ user.email }}</td>
             <td class="px-4 py-2 border">{{ user.user_roles }}</td>
+            <td class="px-4 py-2 border">{{ user.department }}</td>
+            <td class="px-4 py-2 border">{{ user.level }}</td>
             <td class="px-4 py-2 border text-center">
               <Link
                 class="text-blue-600 hover:text-blue-900"

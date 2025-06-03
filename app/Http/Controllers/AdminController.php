@@ -31,12 +31,16 @@ class AdminController extends Controller
         'name' => 'required|string|max:255',
         'email' => 'required|email',
         'user_roles' => 'required|string',
+        'level' => 'required|string',
+        'department' => 'required|string'
     ]);
 
     $user = User::findOrFail($id);
     $user->update([
         'name' => $request->input('name'),
         'email' => $request->input('email'),
+        'level' => $request->input('level'),
+        'department' => $request->input('department'),
         'user_roles' => $request->input('user_roles'),
     ]);
 

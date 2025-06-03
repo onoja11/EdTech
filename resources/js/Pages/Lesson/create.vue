@@ -6,13 +6,18 @@ import InputLabel from '@/Components/InputLabel.vue'
 import Input from '@/Components/TextInput.vue'
 const form = useForm({
   title: '',
-  content: '',
+  content: null,
   subject:'',
   grade_level:'',
 })
+const change = (event) => {
+  form.content = event.target.files[0]
+}
 
 const submit = () => {
-  form.post('/lessons')
+  form.post('/lessons',{
+        forceFormData: true,
+  })
 }
 </script>
 
@@ -51,7 +56,7 @@ const submit = () => {
 
         <div class="mb-2"> 
           <label class="block mb-1 font-medium">Content</label>
-          <textarea v-model="form.content" class="w-full border px-3 py-2 focus:border-indigo-500 focus:ring-indigo-500 rounded"></textarea>
+          <input type="file" id="content" @input="change" class="w-full border px-3 py-2 focus:border-indigo-500 focus:ring-indigo-500 rounded"/>
           <div v-if="form.errors.content" class="text-red-500 text-sm">{{ form.errors.content }}</div>
         </div>
 
