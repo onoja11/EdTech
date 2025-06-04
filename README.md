@@ -31,6 +31,7 @@
 
 ### 1. Clone the Repository
 git clone https://github.com/onoja11/EdTech.git
+```bash
 cd EdTech
 composer install
 npm install
@@ -39,6 +40,8 @@ php artisan key:generate
 php artisan migrate
 php artisan db:seed
 npm run dev
+
+```
 
 ---
 
@@ -58,5 +61,4 @@ npm run dev
 - [Tailwind CSS](https://tailwindcss.com/)
 
 
-```bash
 
