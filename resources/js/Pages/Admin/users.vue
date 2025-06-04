@@ -42,7 +42,7 @@ defineProps({
             
             <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">User Management Hub</h1>
             <p class="text-xl text-yellow-100 max-w-2xl mx-auto">
-              Manage your community of learners and administrators with ease.
+              Manage your community of learners and teachers with ease.
             </p>
           </div>
         </div>
@@ -100,7 +100,7 @@ defineProps({
                     </svg>
                   </div>
                   <div>
-                    <p class="text-3xl font-bold text-gray-800">{{ users?.filter(u => u.user_roles !== 'admin').length || 0 }}</p>
+                    <p class="text-3xl font-bold text-gray-800">{{ users?.filter(u => u.user_roles == 'student').length || 0 }}</p>
                     <p class="text-green-600 font-semibold">Students</p>
                   </div>
                 </div>
@@ -164,62 +164,37 @@ defineProps({
                   <tr>
                     <th class="px-6 py-4 text-left text-sm font-bold text-gray-800 uppercase tracking-wider">
                       <div class="flex items-center">
-                        <svg width="16" height="16" viewBox="0 0 24 24" class="text-amber-600 mr-2">
-                          <rect x="3" y="3" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="2" fill="none"/>
-                          <line x1="9" y1="9" x2="15" y2="15" stroke="currentColor" stroke-width="2"/>
-                          <line x1="15" y1="9" x2="9" y2="15" stroke="currentColor" stroke-width="2"/>
-                        </svg>
+                      
                         ID
                       </div>
                     </th>
                     <th class="px-6 py-4 text-left text-sm font-bold text-gray-800 uppercase tracking-wider">
                       <div class="flex items-center">
-                        <svg width="16" height="16" viewBox="0 0 24 24" class="text-amber-600 mr-2">
-                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" fill="none"/>
-                          <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" fill="none"/>
-                        </svg>
                         Name
                       </div>
                     </th>
                     <th class="px-6 py-4 text-left text-sm font-bold text-gray-800 uppercase tracking-wider">
                       <div class="flex items-center">
-                        <svg width="16" height="16" viewBox="0 0 24 24" class="text-amber-600 mr-2">
-                          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" fill="none"/>
-                          <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" fill="none"/>
-                        </svg>
                         Email
                       </div>
                     </th>
                     <th class="px-6 py-4 text-left text-sm font-bold text-gray-800 uppercase tracking-wider">
                       <div class="flex items-center">
-                        <svg width="16" height="16" viewBox="0 0 24 24" class="text-amber-600 mr-2">
-                          <path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" stroke="currentColor" stroke-width="2" fill="none"/>
-                        </svg>
                         Role
                       </div>
                     </th>
                     <th class="px-6 py-4 text-left text-sm font-bold text-gray-800 uppercase tracking-wider">
                       <div class="flex items-center">
-                        <svg width="16" height="16" viewBox="0 0 24 24" class="text-amber-600 mr-2">
-                          <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" stroke="currentColor" stroke-width="2" fill="none"/>
-                        </svg>
                         Department
                       </div>
                     </th>
                     <th class="px-6 py-4 text-left text-sm font-bold text-gray-800 uppercase tracking-wider">
                       <div class="flex items-center">
-                        <svg width="16" height="16" viewBox="0 0 24 24" class="text-amber-600 mr-2">
-                          <polyline points="22,12 18,12 15,21 9,3 6,12 2,12" stroke="currentColor" stroke-width="2" fill="none"/>
-                        </svg>
                         Level
                       </div>
                     </th>
                     <th class="px-6 py-4 text-center text-sm font-bold text-gray-800 uppercase tracking-wider">
-                      <div class="flex items-center justify-center">
-                        <svg width="16" height="16" viewBox="0 0 24 24" class="text-amber-600 mr-2">
-                          <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" fill="none"/>
-                          <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1" stroke="currentColor" stroke-width="2"/>
-                        </svg>
+                      <div class="flex items-center justify-center">  
                         Actions
                       </div>
                     </th>
@@ -257,21 +232,29 @@ defineProps({
                       </div>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                      <span 
-                        :class="user.user_roles === 'admin' 
-                          ? 'bg-gradient-to-r from-amber-100 to-yellow-100 text-amber-800 border border-amber-200' 
-                          : 'bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 border border-green-200'"
-                        class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold"
-                      >
-                        <svg v-if="user.user_roles === 'admin'" width="16" height="16" viewBox="0 0 24 24" class="mr-1">
-                          <path d="M12 6L9 9l3-8 3 8z" fill="currentColor"/>
-                          <rect x="2" y="9" width="20" height="4" rx="2" fill="currentColor"/>
+                      <div class="flex items-center px-1 bg-gradient-to-r from-amber-100 to-yellow-100 text-amber-800 border border-amber-200" v-if="user.user_roles == 'admin'">
+                        <svg width="16" height="16" viewBox="0 0 24 24" class="text-gray-400 mr-2">
+                          <path d="M12 2L2 7v10l10 5 10-5V7L12 2z" stroke="currentColor" stroke-width="2" fill="none"/>
+                          <line x1="12" y1="22" x2="12" y2="8" stroke="currentColor" stroke-width="2"/>
                         </svg>
-                        <svg v-else width="16" height="16" viewBox="0 0 24 24" class="mr-1">
-                          <path d="M12 3L1 9l11 6 9-4.91V17h2v-8L12 3z" fill="currentColor"/>
+                        {{ user.user_roles || 'N/A' }}
+                      </div>
+                      <div class="flex items-center px-1 bg-gradient-to-r from-red-100 to-red-100 text-red-800 border border-red-200" v-if="user.user_roles == 'teacher'">
+                        <svg width="16" height="16" viewBox="0 0 24 24" class="text-gray-400 mr-2">
+                          <path d="M12 2L2 7v10l10 5 10-5V7L12 2z" stroke="currentColor" stroke-width="2" fill="none"/>
+                          <line x1="12" y1="22" x2="12" y2="8" stroke="currentColor" stroke-width="2"/>
                         </svg>
-                        {{ user.user_roles === 'admin' ? 'Administrator' : 'Student' }}
-                      </span>
+                        {{ user.user_roles || 'N/A' }}
+                      </div>
+                      
+                      <div class="flex items-center px-1 bg-gradient-to-r from-green-100 to-green-100 text-green-800 border border-green-200" v-if="user.user_roles == 'student'">
+                        <svg width="16" height="16" viewBox="0 0 24 24" class="text-gray-400 mr-2">
+                          <path d="M12 2L2 7v10l10 5 10-5V7L12 2z" stroke="currentColor" stroke-width="2" fill="none"/>
+                          <line x1="12" y1="22" x2="12" y2="8" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                        {{ user.user_roles || 'N/A' }}
+                      </div>
+                      
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                       <div class="flex items-center">
@@ -324,18 +307,6 @@ defineProps({
                   </tr>
                 </tbody>
               </table>
-            </div>
-
-            <!-- Empty State -->
-            <div v-if="!users || users.length === 0" class="text-center py-16">
-              <div class="flex justify-center mb-6">
-                <svg width="80" height="80" viewBox="0 0 24 24" class="text-gray-400">
-                  <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1" fill="none"/>
-                  <path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01" stroke="currentColor" stroke-width="2" fill="none"/>
-                </svg>
-              </div>
-              <h3 class="text-2xl font-bold text-gray-600 mb-4">No Users Found</h3>
-              <p class="text-gray-500 text-lg">There are currently no registered users in the system.</p>
             </div>
           </div>
         </div>

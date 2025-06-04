@@ -32,7 +32,6 @@ const submit = () => {
 <template>
     <GuestLayout>
         <Head title="Log in" />
-
         <div v-if="status" class="mb-4 text-sm font-medium text-green-600">
             {{ status }}
         </div>
@@ -44,11 +43,11 @@ const submit = () => {
                 <TextInput
                     id="email"
                     type="email"
-                    class="mt-1 block w-full"
                     v-model="form.email"
                     required
                     autofocus
                     autocomplete="username"
+                    class="mt-1 block w-full border-gray-300 focus:border-yellow-500 focus:ring-yellow-500 rounded-md shadow-sm"
                 />
 
                 <InputError class="mt-2" :message="form.errors.email" />
@@ -60,10 +59,10 @@ const submit = () => {
                 <TextInput
                     id="password"
                     type="password"
-                    class="mt-1 block w-full"
                     v-model="form.password"
                     required
                     autocomplete="current-password"
+                    class="mt-1 block w-full border-gray-300 focus:border-yellow-500 focus:ring-yellow-500 rounded-md shadow-sm"
                 />
 
                 <InputError class="mt-2" :message="form.errors.password" />
@@ -88,12 +87,23 @@ const submit = () => {
                 </Link>
 
                 <PrimaryButton
-                    class="ms-4"
+                    class=""
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
                     Log in
                 </PrimaryButton>
+            </div>
+            <div class="flex justify-center">
+                <p class="mt-4 text-sm text-gray-600">
+                    Don't have an account?
+                    <Link
+                        :href="route('register')"
+                        class="text-yellow-500 hover:text-yellow-700 font-semibold"
+                    >
+                        Register
+                    </Link>
+                </p>
             </div>
         </form>
     </GuestLayout>

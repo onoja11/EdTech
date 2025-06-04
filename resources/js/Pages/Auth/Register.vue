@@ -146,6 +146,17 @@ const submit = () => {
                     Register
                 </PrimaryButton>
             </div>
+             <div class="flex justify-center">
+                <p class="mt-4 text-sm text-gray-600">
+                    Don't have an account?
+                    <Link
+                        :href="route('login')"
+                        class="text-yellow-500 hover:text-yellow-700 font-semibold"
+                    >
+                        Login
+                    </Link>
+                </p>
+            </div>
         </form>
     </GuestLayout>
 </template>

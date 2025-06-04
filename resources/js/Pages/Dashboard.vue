@@ -115,7 +115,8 @@ defineProps({
               </svg>
             </div>
             <h2 class="text-4xl font-bold text-gray-800 mb-4">
-              <span v-if="user_role === 'admin'">Your Created Lessons</span>
+              <span v-if="user_role === 'teacher'">Your Created Lessons</span>
+              <span v-else-if="user_role === 'admin'">Created Lessons</span>
               <span v-else>Available Lessons</span>
             </h2>
             <p class="text-lg text-gray-600 max-w-2xl mx-auto">

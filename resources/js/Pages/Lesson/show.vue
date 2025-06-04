@@ -13,6 +13,9 @@ const prompt = ref('')
 const response = ref('')
 const loading = ref(false)
 
+// Track expanded state for each question response
+const expandedResponses = ref({})
+
 const askGemini = async (lessonId) => {
   if (!prompt.value.trim()) return
   loading.value = true
@@ -27,6 +30,22 @@ const askGemini = async (lessonId) => {
     loading.value = false
   }
 }
+
+// Function to toggle expanded state
+const toggleExpanded = (questionId) => {
+  expandedResponses.value[questionId] = !expandedResponses.value[questionId]
+}
+
+// Function to truncate text
+const truncateText = (text, maxLength = 200) => {
+  if (text.length <= maxLength) return text
+  return text.substring(0, maxLength) + '...'
+}
+
+// Function to check if text needs truncation
+const needsTruncation = (text, maxLength = 200) => {
+  return text.length > maxLength
+}
 </script>
 
 <template>
@@ -39,28 +58,8 @@ const askGemini = async (lessonId) => {
         <!-- Header Section with Fun Wave SVG -->
         <div class="relative mb-8">
           <div class="bg-gradient-to-r from-yellow-400 via-amber-400 to-orange-400 rounded-3xl p-8 text-center shadow-xl relative overflow-hidden">
-            <!-- Decorative Wave SVG -->
-            <svg class="absolute top-0 left-0 w-full h-full opacity-20" viewBox="0 0 1200 120" preserveAspectRatio="none">
-              <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="rgba(255,255,255,0.3)"/>
-            </svg>
-            
-            <!-- Sun SVG -->
-            <div class="absolute top-4 right-8">
-              <svg width="60" height="60" viewBox="0 0 60 60" class="text-yellow-200">
-                <circle cx="30" cy="30" r="15" fill="currentColor"/>
-                <g stroke="currentColor" stroke-width="3" stroke-linecap="round">
-                  <line x1="30" y1="5" x2="30" y2="10"/>
-                  <line x1="30" y1="50" x2="30" y2="55"/>
-                  <line x1="5" y1="30" x2="10" y2="30"/>
-                  <line x1="50" y1="30" x2="55" y2="30"/>
-                  <line x1="12.93" y1="12.93" x2="16.76" y2="16.76"/>
-                  <line x1="43.24" y1="43.24" x2="47.07" y2="47.07"/>
-                  <line x1="12.93" y1="47.07" x2="16.76" y2="43.24"/>
-                  <line x1="43.24" y1="16.76" x2="47.07" y2="12.93"/>
-                </g>
-              </svg>
-            </div>
-            
+         
+           
             <h1 class="text-4xl md:text-5xl font-bold text-white mb-2 relative z-10">{{ lesson.title }}</h1>
             <h2 class="text-xl md:text-2xl font-semibold text-yellow-100 mb-2 relative z-10">{{ lesson.subject }}</h2>
             <div class="flex items-center justify-center relative z-10">
@@ -98,12 +97,6 @@ const askGemini = async (lessonId) => {
         <!-- AI Assistant Section -->
         <div class="bg-white rounded-3xl shadow-2xl p-8 border border-yellow-200">
           <div class="flex items-center mb-6">
-            <!-- Brain/AI SVG -->
-            <svg width="32" height="32" viewBox="0 0 24 24" class="text-amber-600 mr-3">
-              <path d="M12 2C8.5 2 6 4.5 6 8c0 1.5.5 3 1.5 4C6 13.5 5 15.5 5 18c0 2.5 2.5 4 5.5 4h3c3 0 5.5-1.5 5.5-4 0-2.5-1-4.5-2.5-6 1-1 1.5-2.5 1.5-4 0-3.5-2.5-6-6-6z" fill="currentColor"/>
-              <circle cx="9" cy="8" r="1" fill="white"/>
-              <circle cx="15" cy="8" r="1" fill="white"/>
-            </svg>
             <h2 class="text-3xl font-bold text-gray-800">Ask Your AI Study Buddy</h2>
           </div>
           
@@ -111,7 +104,7 @@ const askGemini = async (lessonId) => {
             <textarea
               v-model="prompt"
               rows="4"
-              placeholder="What would you like to know about this lesson? Ask me anything! 🤔"
+              placeholder="What would you like to know about this lesson? Ask me anything! "
               class="w-full p-4 border-2 border-yellow-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-yellow-200 focus:border-amber-400 text-gray-800 placeholder-gray-500 text-lg"
             ></textarea>
             
@@ -169,12 +162,8 @@ const askGemini = async (lessonId) => {
                 class="bg-white rounded-xl p-5 shadow-md border border-blue-100 hover:shadow-lg transition-shadow duration-300"
               >
                 <div class="flex items-start mb-3">
-                  <!-- Question SVG -->
-                  <svg width="20" height="20" viewBox="0 0 24 24" class="text-blue-500 mr-2 mt-1 flex-shrink-0">
-                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
-                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M12 17h.01" stroke="currentColor" stroke-width="2" fill="none"/>
-                  </svg>
+                  <div class="rounded-xl bg-blue-500 p-2 mr-2 mt-1 flex-shrink-0"></div>
+                 
                   <div class="flex-1">
                     <p class="font-bold text-gray-800 mb-2">You asked:</p>
                     <p class="text-gray-700 mb-4 bg-blue-50 p-3 rounded-lg">{{ question.question }}</p>
@@ -182,13 +171,42 @@ const askGemini = async (lessonId) => {
                 </div>
                 
                 <div class="flex items-start">
-                  <!-- Answer SVG -->
-                  <svg width="20" height="20" viewBox="0 0 24 24" class="text-green-500 mr-2 mt-1 flex-shrink-0">
-                    <path d="M12 2C8.5 2 6 4.5 6 8c0 1.5.5 3 1.5 4C6 13.5 5 15.5 5 18c0 2.5 2.5 4 5.5 4h3c3 0 5.5-1.5 5.5-4 0-2.5-1-4.5-2.5-6 1-1 1.5-2.5 1.5-4 0-3.5-2.5-6-6-6z" fill="currentColor"/>
-                  </svg>
+                  <div class="rounded-xl bg-green-500 p-2 mr-2 mt-1 flex-shrink-0"></div>
                   <div class="flex-1">
                     <p class="font-bold text-gray-800 mb-2">AI Response:</p>
-                    <p class="text-gray-700 bg-green-50 p-3 rounded-lg">{{ question.ai_response }}</p>
+                    <div class="bg-green-50 p-3 rounded-lg">
+                      <p class="text-gray-700 leading-relaxed">
+                        <!-- Show truncated or full text based on expanded state -->
+                        <template v-if="expandedResponses[question.id] || !needsTruncation(question.ai_response)">
+                          {{ question.ai_response }}
+                        </template>
+                        <template v-else>
+                          {{ truncateText(question.ai_response) }}
+                        </template>
+                      </p>
+                      
+                      <!-- Read More/Read Less Button -->
+                      <button
+                        v-if="needsTruncation(question.ai_response)"
+                        @click="toggleExpanded(question.id)"
+                        class="mt-3 text-green-600 hover:text-green-800 font-medium text-sm flex items-center transition-colors duration-200 group"
+                      >
+                        <template v-if="expandedResponses[question.id]">
+                          <!-- Read Less Icon -->
+                          <svg width="16" height="16" viewBox="0 0 24 24" class="mr-1 transform group-hover:-translate-y-0.5 transition-transform">
+                            <path d="M7 14l5-5 5 5z" fill="currentColor"/>
+                          </svg>
+                          Read Less
+                        </template>
+                        <template v-else>
+                          <!-- Read More Icon -->
+                          <svg width="16" height="16" viewBox="0 0 24 24" class="mr-1 transform group-hover:translate-y-0.5 transition-transform">
+                            <path d="M7 10l5 5 5-5z" fill="currentColor"/>
+                          </svg>
+                          Read More
+                        </template>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -200,4 +218,4 @@ const askGemini = async (lessonId) => {
       </div>
     </div>
   </AuthenticatedLayout>
-</template>
+</template> 
