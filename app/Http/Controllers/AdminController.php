@@ -9,9 +9,7 @@ class AdminController extends Controller
 {
     //
     public function allUsers(){
-        $users = User::where('user_roles', '!=', 'admin')
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $users = User::all();
         return Inertia('Admin/users', [
             'users' => $users,
         ]);

@@ -49,7 +49,11 @@ public function store(Request $request)
 public function show(int $id)
 {
     $lessons = Lesson::findOrFail($id);
-    $questions = $lessons->questions()->where('user_id',auth()->id())->with('user')->get();
+    $questions = $lessons->questions()->where('user_id',auth()->id())->latest()->with('user')->get();
+    $questions = $questions->map(function ($question) {
+        $question->ai_response = Str::limit($question->ai_response, 100, '...');
+        return $question;
+    });
     // dd($questions);
     $created_by = User::findOrFail($lessons->created_by);
     return Inertia::render('Lesson/show', [
