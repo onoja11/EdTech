@@ -20,12 +20,21 @@ const askGemini = async (lessonId) => {
   if (!prompt.value.trim()) return
   loading.value = true
   response.value = ''
+  
   try {
-    const res = await axios.post('/generate', { prompt: prompt.value, lesson_id: lessonId })
+    const res = await axios.post('/generate', { 
+      prompt: prompt.value, 
+      lesson_id: lessonId 
+    })
+    
     response.value = res.data?.candidates?.[0]?.content?.parts?.[0]?.text || 'No response'
+    
+    // Clear the prompt after successful response
+    prompt.value = ''
+    
   } catch (error) {
     console.error(error)
-    response.value = 'An error occurred while contacting Gemini.'
+    response.value = 'An error occurred while contacting the AI assistant.'
   } finally {
     loading.value = false
   }
@@ -46,6 +55,13 @@ const truncateText = (text, maxLength = 200) => {
 const needsTruncation = (text, maxLength = 200) => {
   return text.length > maxLength
 }
+
+// Auto-resize textarea
+const autoResize = (event) => {
+  const textarea = event.target
+  textarea.style.height = 'auto'
+  textarea.style.height = textarea.scrollHeight + 'px'
+}
 </script>
 
 <template>
@@ -55,11 +71,9 @@ const needsTruncation = (text, maxLength = 200) => {
     <div class="min-h-screen bg-gradient-to-br from-yellow-50 via-amber-50 to-orange-50">
       <div class="max-w-5xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
         
-        <!-- Header Section with Fun Wave SVG -->
+        <!-- Header Section -->
         <div class="relative mb-8">
           <div class="bg-gradient-to-r from-yellow-400 via-amber-400 to-orange-400 rounded-3xl p-8 text-center shadow-xl relative overflow-hidden">
-         
-           
             <h1 class="text-4xl md:text-5xl font-bold text-white mb-2 relative z-10">{{ lesson.title }}</h1>
             <h2 class="text-xl md:text-2xl font-semibold text-yellow-100 mb-2 relative z-10">{{ lesson.subject }}</h2>
             <div class="flex items-center justify-center relative z-10">
@@ -101,47 +115,55 @@ const needsTruncation = (text, maxLength = 200) => {
           </div>
           
           <div class="bg-gradient-to-r from-yellow-50 to-amber-50 rounded-2xl p-6 mb-6 border-2 border-yellow-200">
-            <textarea
-              v-model="prompt"
-              rows="4"
-              placeholder="What would you like to know about this lesson? Ask me anything! "
-              class="w-full p-4 border-2 border-yellow-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-yellow-200 focus:border-amber-400 text-gray-800 placeholder-gray-500 text-lg"
-            ></textarea>
+            <div class="mb-4">
+              <label class="block text-gray-700 text-sm font-bold mb-2">
+                 What would you like to know about this lesson?
+              </label>
+              <textarea
+                v-model="prompt"
+                @input="autoResize"
+                rows="3"
+                placeholder="Ask me anything about this lesson content..."
+                class="w-full p-4 border-2 border-yellow-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-yellow-200 focus:border-amber-400 text-gray-800 placeholder-gray-500 text-lg resize-none transition-all duration-200"
+              ></textarea>
+            </div>
             
             <button
               @click="askGemini(lesson.id)"
               :disabled="loading"
-              class="mt-4 bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-500 hover:to-yellow-600 disabled:from-gray-300 disabled:to-gray-400 text-white px-8 py-3 rounded-xl transition-all duration-300 transform hover:scale-105 font-semibold text-lg shadow-lg"
+              class="bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-500 hover:to-yellow-600 disabled:from-gray-300 disabled:to-gray-400 text-white px-8 py-4 rounded-xl transition-all duration-300 transform hover:scale-105 disabled:hover:scale-100 font-semibold text-lg shadow-lg"
             >
-              <span v-if="loading" class="flex items-center">
+              <span v-if="loading" class="flex items-center justify-center">
                 <!-- Loading spinner SVG -->
-                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <svg class="animate-spin -ml-1 mr-3 h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                   <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
-                Thinking...
+                Reading lesson content and thinking...
               </span>
-              <span v-else class="flex items-center">
+              <span v-else class="flex items-center justify-center">
                 <!-- Send SVG -->
-                <svg width="20" height="20" viewBox="0 0 24 24" class="mr-2" fill="currentColor">
+                <svg width="24" height="24" viewBox="0 0 24 24" class="mr-3" fill="currentColor">
                   <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
                 </svg>
-                Ask Question
+                Ask About This Lesson
               </span>
             </button>
           </div>
 
           <!-- AI Response -->
-          <div v-if="response" class="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl p-6 mb-6">
-            <div class="flex items-center mb-3">
-              <!-- Check/Success SVG -->
-              <svg width="24" height="24" viewBox="0 0 24 24" class="text-green-600 mr-2">
+          <div v-if="response" class="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl p-6 mb-6 animate-fade-in">
+            <div class="flex items-center mb-4">
+              <!-- AI Success SVG -->
+              <svg width="28" height="28" viewBox="0 0 24 24" class="text-green-600 mr-3">
                 <circle cx="12" cy="12" r="10" fill="currentColor"/>
                 <path d="m9 12 2 2 4-4" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
-              <h3 class="text-xl font-bold text-green-800">AI Study Buddy Says:</h3>
+              <h3 class="text-2xl font-bold text-green-800">AI Study Buddy Says:</h3>
             </div>
-            <p class="text-gray-800 whitespace-pre-wrap text-lg leading-relaxed">{{ response }}</p>
+            <div class="bg-white rounded-xl p-4 border border-green-200">
+              <p class="text-gray-800 whitespace-pre-wrap text-lg leading-relaxed">{{ response }}</p>
+            </div>
           </div>
 
           <!-- Question History -->
@@ -155,23 +177,22 @@ const needsTruncation = (text, maxLength = 200) => {
               <h3 class="text-2xl font-bold text-blue-800">Your Learning History</h3>
             </div>
             
-            <div class="space-y-4">
+            <div class="space-y-4 max-h-96 overflow-y-auto">
               <div 
                 v-for="question in questions" 
                 :key="question.id"
                 class="bg-white rounded-xl p-5 shadow-md border border-blue-100 hover:shadow-lg transition-shadow duration-300"
               >
                 <div class="flex items-start mb-3">
-                  <div class="rounded-xl bg-blue-500 p-2 mr-2 mt-1 flex-shrink-0"></div>
-                 
+                  <div class="rounded-full bg-blue-500 w-3 h-3 mr-3 mt-2 flex-shrink-0"></div>
                   <div class="flex-1">
                     <p class="font-bold text-gray-800 mb-2">You asked:</p>
-                    <p class="text-gray-700 mb-4 bg-blue-50 p-3 rounded-lg">{{ question.question }}</p>
+                    <p class="text-gray-700 mb-4 bg-blue-50 p-3 rounded-lg italic">{{ question.question }}</p>
                   </div>
                 </div>
                 
                 <div class="flex items-start">
-                  <div class="rounded-xl bg-green-500 p-2 mr-2 mt-1 flex-shrink-0"></div>
+                  <div class="rounded-full bg-green-500 w-3 h-3 mr-3 mt-2 flex-shrink-0"></div>
                   <div class="flex-1">
                     <p class="font-bold text-gray-800 mb-2">AI Response:</p>
                     <div class="bg-green-50 p-3 rounded-lg">
@@ -213,9 +234,8 @@ const needsTruncation = (text, maxLength = 200) => {
             </div>
           </div>
         </div>
-        
-        
       </div>
     </div>
   </AuthenticatedLayout>
-</template> 
+</template>
+

@@ -23,7 +23,8 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
         $authUser = User::find(auth()->id());
         if ($authUser->user_roles == 'teacher') {
-            $lessons=Lesson::where('created_by',$authUser);             
+            $lessons=Lesson::where('created_by', auth()->id())->get();             
+            // dd($lessons);
         }
         else{
             $lessons=Lesson::all(); 
