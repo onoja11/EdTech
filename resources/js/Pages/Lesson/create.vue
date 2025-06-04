@@ -10,6 +10,9 @@ const form = useForm({
   subject:'',
   grade_level:'',
 })
+defineProps({
+  levels: Array,
+})
 const change = (event) => {
   form.content = event.target.files[0]
 }
@@ -52,7 +55,10 @@ const submit = () => {
         <div class="mb-2">
           <!-- <label class="block mb-1 font-medium">Title</label> -->
           <InputLabel >Level</InputLabel>
-          <Input type="text" class="w-full p-2 border-2 border-yellow-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-yellow-200 focus:border-amber-400 text-gray-800 placeholder-gray-500 text-lg" v-model="form.grade_level"/>
+          <select type="text" id="level" class="w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500" v-model="form.level">
+                    <option></option>
+                    <option v-for="level in levels" :value="level">{{ level }}</option>
+          </select>  
           <div v-if="form.errors.grade_level" class="text-red-500 text-sm">{{ form.errors.grade_level }}</div>
         </div>
 

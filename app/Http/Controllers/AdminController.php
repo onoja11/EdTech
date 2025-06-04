@@ -17,8 +17,12 @@ class AdminController extends Controller
     public function editShow(Request $request, $id)
     {
         $user = User::findOrFail($id);
+        $levels = [100, 200, 300, 400, 500];
+        $roles = ['students', 'admin', 'teacher'];
         return Inertia('Admin/editUser', [
             'user' => $user,
+            'levels' => $levels,
+            'roles' => $roles,
             // 'user_roles' => $request->input('user_roles'),
         ]);
     }

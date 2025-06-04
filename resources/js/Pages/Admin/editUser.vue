@@ -7,6 +7,8 @@ import Input from '@/Components/TextInput.vue'
 
 const props= defineProps({
   user: Object,
+  levels:Array,
+  roles:Array,
 });
 
 const form = useForm({
@@ -17,6 +19,8 @@ department: props.user.department,
 level: props.user.level
 
 })
+
+
 
 
 const submit = () => {
@@ -55,14 +59,20 @@ const submit = () => {
         <div class="mb-3">
           <!-- <label class="block mb-1 font-medium">Title</label> -->
           <InputLabel >Role</InputLabel>
-          <Input type="text" class="w-full p-2 border-2 border-yellow-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-yellow-200 focus:border-amber-400 text-gray-800 placeholder-gray-500 text-lg" v-model="form.user_roles"/>
+          <select type="text" id="level" class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" v-model="form.user_roles">
+                    <option></option>
+                    <option v-for="role in roles" :value="role">{{ role }}</option>
+          </select> 
           <div v-if="form.errors.user_roles" class="text-red-500 text-sm">{{ form.errors.user_roles }}</div>
         </div>
         
         <div class="mb-3">
           <!-- <label class="block mb-1 font-medium">Title</label> -->
           <InputLabel >Level</InputLabel>
-          <Input type="text" class="w-full p-2 border-2 border-yellow-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-yellow-200 focus:border-amber-400 text-gray-800 placeholder-gray-500 text-lg" v-model="form.level"/>
+          <select type="text" id="level" class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" v-model="form.level">
+                    <option></option>
+                    <option v-for="level in levels" :value="level">{{ level }}</option>
+          </select>
           <div v-if="form.errors.level" class="text-red-500 text-sm">{{ form.errors.level }}</div>
         </div>
 

@@ -15,7 +15,10 @@ class LessonController extends Controller
     
     public function create()
 {
-    return Inertia::render('Lesson/create');
+    $levels =  [100, 200, 300, 400, 500];
+    return Inertia::render('Lesson/create',[
+        'levels' => $levels,
+    ]);
 }
 
 public function store(Request $request)
