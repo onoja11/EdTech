@@ -51,6 +51,15 @@ npm run dev
 #### Email: admin@gmail.com
 #### Password: password
 
+##### Admins can:
+##### * View all users and lessons
+##### * Change user roles (e.g., promote a student to teacher or admin)
+
+##### Teachers can:
+##### * Create lessons and view lessons created by them
+
+##### Students can:
+##### * Can view all the lessons available
 ---
 ## ✨ Acknowledgements
 
