@@ -7,6 +7,7 @@ defineProps({
   lesson: Object,
   created_by: Object,
   questions: Object,
+  recommendations: Object,
 })
 
 const prompt = ref('')
@@ -166,6 +167,7 @@ const autoResize = (event) => {
             </div>
           </div>
 
+          
           <!-- Question History -->
           <div v-if="questions && questions.length" class="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-2xl p-6">
             <div class="flex items-center mb-4">

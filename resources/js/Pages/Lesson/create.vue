@@ -55,7 +55,7 @@ const submit = () => {
         <div class="mb-2">
           <!-- <label class="block mb-1 font-medium">Title</label> -->
           <InputLabel >Level</InputLabel>
-          <select type="text" id="level" class="w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500" v-model="form.level">
+          <select type="text" id="level" class="w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500" v-model="form.grade_level">
                     <option></option>
                     <option v-for="level in levels" :value="level">{{ level }}</option>
           </select>  

@@ -48,7 +48,7 @@ npm run dev
 ##  Admin Access
 
 ### To access the admin panel, use the following credentials:
-#### Email: admin@gmail.com
+#### Email: admin@example.com
 #### Password: password
 
 ##### Admins can:

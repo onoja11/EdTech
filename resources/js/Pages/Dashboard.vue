@@ -201,7 +201,7 @@ defineProps({
               </span>
             </p>
             
-            <Link v-if="user_role === 'admin'" 
+            <Link v-if="user_role === 'admin' || user_role === 'teacher'" 
                   :href="route('lessons.create')"
                   class="inline-flex items-center bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-500 hover:to-yellow-600 text-white px-8 py-3 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
               <svg width="20" height="20" viewBox="0 0 24 24" class="mr-2">

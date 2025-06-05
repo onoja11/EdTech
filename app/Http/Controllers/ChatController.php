@@ -21,19 +21,13 @@ class ChatController extends Controller
         $prompt = $request->input('prompt');
         $lessonId = $request->input('lesson_id');
         
-        // Get the current lesson
         $currentLesson = Lesson::find($lessonId);
         
-        // Extract content from current lesson's PDF
         $currentPdfContent = $this->extractPdfContent($currentLesson->content);
         
-        // Build context-aware prompt
         $contextualPrompt = $this->buildContextualPrompt($prompt, $currentPdfContent, $currentLesson);
-        
-        // Generate AI response
         $aiResponse = $this->callGeminiAPI($contextualPrompt);
         
-        // Save the question and response
         Question::create([
             'user_id' => auth()->id(),
             'lesson_id' => $lessonId,
@@ -68,9 +62,8 @@ class ChatController extends Controller
             $pdf = $parser->parseFile($fullPath);
             $text = $pdf->getText();
             
-            // Clean and limit the text (Gemini has token limits)
             $cleanText = $this->cleanText($text);
-            return substr($cleanText, 0, 10000); // Limit to ~10000 characters
+            return substr($cleanText, 0, 10000); 
             
         } catch (\Exception $e) {
             return '';
@@ -79,10 +72,8 @@ class ChatController extends Controller
 
     private function cleanText($text)
     {
-        // Remove extra whitespace and clean up the text
         $text = preg_replace('/\s+/', ' ', $text);
         $text = trim($text);
-        // Remove special characters that might cause issues
         $text = preg_replace('/[^\w\s\.\,\!\?\:\;\-\(\)]/', '', $text);
         return $text;
     }
