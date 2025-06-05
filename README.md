@@ -4,17 +4,17 @@
 
 ---
 
-## 🧠 Features
+##  Features
 
-- 🔍 **AI-Powered Q&A**: Ask questions and receive smart, context-aware answers.
-- 📄 **PDF Lesson Integration**: The system extracts text from uploaded lesson PDFs for precise and relevant AI responses.
-- 👤 **User Authentication**: Secure login and registration with role-based access.
-- 🕓 **Question History**: Tracks previous questions and responses per user and lesson.
-- 🎨 **Clean UI**: Built with Vue.js and Tailwind CSS for a responsive and user-friendly interface.
+-  **AI-Powered Q&A**: Ask questions and receive smart, context-aware answers.
+-  **PDF Lesson Integration**: The system extracts text from uploaded lesson PDFs for precise and relevant AI responses.
+-  **User Authentication**: Secure login and registration with role-based access.
+-  **Question History**: Tracks previous questions and responses per user and lesson.
+-  **Clean UI**: Built with Vue.js and Tailwind CSS for a responsive and user-friendly interface.
 
 ---
 
-## ⚙️ Tech Stack
+##  Tech Stack
 
 | Layer         | Technology           |
 |---------------|----------------------|
@@ -27,7 +27,7 @@
 
 ---
 
-## 🚀 Installation Guide
+##  Installation Guide
 
 ### 1. Clone the Repository
 git clone https://github.com/onoja11/EdTech.git
@@ -61,7 +61,7 @@ npm run dev
 ##### Students can:
 ##### * Can view all the lessons available
 ---
-## ✨ Acknowledgements
+##  Acknowledgements
 
 - [Google Gemini API](https://ai.google.dev/gemini-api/docs)
 - [Smalot PDF Parser](https://github.com/smalot/pdfparser)
