@@ -39,6 +39,7 @@ cp .env.example .env
 php artisan key:generate
 php artisan migrate
 php artisan db:seed
+composer require smalot/pdfparser
 npm run dev
 
 ```
@@ -54,9 +55,11 @@ npm run dev
 ##### Admins can:
 ##### * View all users and lessons
 ##### * Change user roles (e.g., promote a student to teacher or admin)
+##### * Delete and edit any lesson and it's content
 
 ##### Teachers can:
 ##### * Create lessons and view lessons created by them
+##### * Delete and edit there own lesson and it's content
 
 ##### Students can:
 ##### * Can view all the lessons available
