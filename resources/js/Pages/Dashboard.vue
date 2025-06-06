@@ -1,5 +1,5 @@
 <script setup>
-import { Head, Link} from '@inertiajs/vue3'
+import { Head, Link, router} from '@inertiajs/vue3'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 
 defineProps({
@@ -173,12 +173,43 @@ defineProps({
                         <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
                       </svg>
                     </div>
+                    
+                     <!-- Delete Button -->
+                       
                   </div>
                   
                   <!-- Hover Overlay -->
                   <div class="absolute inset-0 bg-gradient-to-r from-amber-400/0 to-yellow-500/0 group-hover:from-amber-400/10 group-hover:to-yellow-500/10 transition-all duration-300 rounded-3xl"></div>
                 </div>
               </Link>
+                <div class="flex items-center justify-center space-x-3 mt-5" v-if="user_role == 'admin' || user_role =='teacher'">
+                         <form @submit.prevent="router.delete(`/lesson/${lesson.id}/delete`)" class="inline">
+                          <button
+                            type="submit"
+                            class="group bg-gradient-to-r from-red-400 to-pink-500 hover:from-red-500 hover:to-pink-600 text-white p-2 rounded-lg transition-all duration-200 transform hover:scale-105 shadow-md hover:shadow-lg"
+                            title="Delete User"
+                            @click="confirm('Are you sure you want to delete this user?') || $event.preventDefault()"
+                          >
+                            <svg width="16" height="16" viewBox="0 0 24 24" class="group-hover:scale-110 transition-transform">
+                              <polyline points="3,6 5,6 21,6" stroke="currentColor" stroke-width="2" fill="none"/>
+                              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="currentColor" stroke-width="2" fill="none"/>
+                              <line x1="10" y1="11" x2="10" y2="17" stroke="currentColor" stroke-width="2"/>
+                              <line x1="14" y1="11" x2="14" y2="17" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                          </button>
+                        </form>
+
+                          <Link
+                          :href="`/lesson/${lesson.id}/edit`"
+                          class="group bg-gradient-to-r from-blue-400 to-indigo-500 hover:from-blue-500 hover:to-indigo-600 text-white p-2 rounded-lg transition-all duration-200 transform hover:scale-105 shadow-md hover:shadow-lg"
+                          title="Edit User"
+                        >
+                          <svg width="16" height="16" viewBox="0 0 24 24" class="group-hover:scale-110 transition-transform">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="2" fill="none"/>
+                          </svg>
+                        </Link>
+                    </div>
             </div>
           </div>
           

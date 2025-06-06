@@ -39,6 +39,11 @@ Route::get('/dashboard', function () {
     Route::get('/lessons/create', [LessonController::class, 'create'])->name('lessons.create')->middleware('staff');
     Route::post('/lessons', [LessonController::class, 'store'])->name('lessons.store')->middleware('staff');
     Route::get('/lessons/{id}', [LessonController::class, 'show'])->name('lessons.show') ;
+    Route::delete('/lesson/{id}/delete', [LessonController::class, 'delete'])->name('lessons.delete') ;
+    Route::get('/lesson/{id}/edit', [LessonController::class, 'edit'])->name('lessons.edit') ;
+    Route::put('/lesson/{id}/edit', [LessonController::class, 'update'])->name('lessons.update') ;
+    Route::get('/lessonContent/{id}/edit', [LessonController::class, 'editContent'])->name('lessons.edit.content') ;
+    Route::post('/lessonContent/{id}/edit', [LessonController::class, 'updateContent'])->name('lessons.update.content') ;
 
     Route::get('users', [\App\Http\Controllers\AdminController::class, 'allUsers'])->name('users.all')->middleware('admin');
     Route::get('user/{id}/edit', [\App\Http\Controllers\AdminController::class, 'editShow'])->name('users.edit')->middleware('admin');

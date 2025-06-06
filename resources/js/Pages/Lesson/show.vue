@@ -1,18 +1,21 @@
 <script setup>
 import { ref } from 'vue'
-import { Head } from '@inertiajs/vue3'
+import { Head, Link  } from '@inertiajs/vue3'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
+import primary from '@/Components/PrimaryButton.vue'
 
 defineProps({
   lesson: Object,
   created_by: Object,
   questions: Object,
   recommendations: Object,
+  user_role:Object,
 })
 
 const prompt = ref('')
 const response = ref('')
 const loading = ref(false)
+const currentRecommendations = ref([])
 
 // Track expanded state for each question response
 const expandedResponses = ref({})
@@ -21,6 +24,7 @@ const askGemini = async (lessonId) => {
   if (!prompt.value.trim()) return
   loading.value = true
   response.value = ''
+  currentRecommendations.value = []
   
   try {
     const res = await axios.post('/generate', { 
@@ -29,6 +33,7 @@ const askGemini = async (lessonId) => {
     })
     
     response.value = res.data?.candidates?.[0]?.content?.parts?.[0]?.text || 'No response'
+    currentRecommendations.value = res.data?.recommendations || []
     
     // Clear the prompt after successful response
     prompt.value = ''
@@ -89,7 +94,7 @@ const autoResize = (event) => {
         </div>
 
         <!-- Lesson Content Card -->
-        <div class="bg-white rounded-3xl shadow-2xl p-8 mb-8 border border-yellow-200">
+        <div class="bg-white relative rounded-3xl shadow-2xl p-8 mb-8 border border-yellow-200">
           <div class="flex items-center mb-6">
             <!-- Book SVG -->
             <svg width="32" height="32" viewBox="0 0 24 24" class="text-amber-600 mr-3">
@@ -97,6 +102,12 @@ const autoResize = (event) => {
               <path d="M8 6h8M8 10h8M8 14h5" stroke="currentColor" stroke-width="2"/>
             </svg>
             <h2 class="text-3xl font-bold text-gray-800">Lesson Content</h2>
+            <div class="md:absolute end-9"  v-if="user_role == 'admin'">
+              <Link
+              :href="`/lessonContent/${lesson.id}/edit`">
+                <primary>edit content</primary>
+              </Link>
+            </div>
           </div>
           
           <div class="bg-gradient-to-r from-yellow-50 to-amber-50 rounded-2xl p-4 border-2 border-yellow-200">
@@ -167,6 +178,63 @@ const autoResize = (event) => {
             </div>
           </div>
 
+          <!-- Lesson Recommendations -->
+          <div v-if="currentRecommendations && currentRecommendations.length" class="bg-gradient-to-r from-purple-50 to-pink-50 border-2 border-purple-200 rounded-2xl p-6 mb-6 animate-fade-in">
+            <div class="flex items-center mb-4">
+              <!-- Lightbulb SVG -->
+              <svg width="28" height="28" viewBox="0 0 24 24" class="text-purple-600 mr-3">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z" fill="currentColor"/>
+              </svg>
+              <h3 class="text-2xl font-bold text-purple-800">Other Lessons That Might Help</h3>
+            </div>
+            
+            <div class="space-y-4">
+              <div 
+                v-for="(recommendation, index) in currentRecommendations" 
+                :key="index"
+                class="bg-white rounded-xl p-5 shadow-md border border-purple-100 hover:shadow-lg transition-all duration-300 hover:border-purple-300"
+              >
+                <div class="flex items-start justify-between">
+                  <div class="flex-1">
+                    <div class="flex items-center mb-2">
+                      <!-- Book Icon -->
+                      <svg width="20" height="20" viewBox="0 0 24 24" class="text-purple-600 mr-2">
+                        <path d="M4 2h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" stroke="currentColor" stroke-width="2" fill="none"/>
+                      </svg>
+                      <h4 class="text-xl font-bold text-gray-800">{{ recommendation.lesson.title }}</h4>
+                    </div>
+                    
+                    <div class="flex items-center mb-3">
+                      <!-- Subject Tag -->
+                      <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-100 text-purple-800 mr-3">
+                        <svg width="16" height="16" viewBox="0 0 24 24" class="mr-1">
+                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/>
+                        </svg>
+                        {{ recommendation.lesson.subject }}
+                      </span>
+                    </div>
+                    
+                    <p class="text-gray-700 mb-4 italic">
+                      <span class="font-medium">Why this might help:</span> {{ recommendation.reason }}
+                    </p>
+                  </div>
+                  
+                  <div class="ml-4 flex-shrink-0">
+                    <Link
+                      :href="`/lessons/${recommendation.lesson.id}`"
+                      class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-medium rounded-lg transition-all duration-300 transform hover:scale-105 shadow-md"
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" class="mr-2" fill="currentColor">
+                        <path d="M13 3l3.293 3.293-7 7 1.414 1.414 7-7L21 11V3z"/>
+                        <path d="M19 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6"/>
+                      </svg>
+                      View Lesson
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           
           <!-- Question History -->
           <div v-if="questions && questions.length" class="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-2xl p-6">
@@ -202,7 +270,7 @@ const autoResize = (event) => {
                         <!-- Show truncated or full text based on expanded state -->
                         <template v-if="expandedResponses[question.id] || !needsTruncation(question.ai_response)">
                           {{ question.ai_response }}
-                        </template>
+  </template>
                         <template v-else>
                           {{ truncateText(question.ai_response) }}
                         </template>
@@ -240,4 +308,3 @@ const autoResize = (event) => {
     </div>
   </AuthenticatedLayout>
 </template>
-
