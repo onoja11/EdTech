@@ -32,8 +32,9 @@ const submit = () => {
       <div class="max-w-2xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
         <!-- Page Heading -->
       <div class="px-4 py-6 sm:px-6 lg:px-8 text-center">
-      <h1 class="text-5xl text-gray-500 font-bold mb-4">Create a New Lesson</h1>
-      <p class="text-gray-600">Fill in the details below to create a new lesson.</p>
+      <h1 class="text-5xl text-gray-500 font-bold mb-4">Edit "{{ lesson.title }}" Content</h1>
+      <p class="text-gray-600">
+Edit the content below to update the lesson material. You can upload a new file or replace the existing one. Make sure the file is in a supported format.</p>
       </div>
 
  <div class="bg-white rounded-3xl shadow-2xl p-8 mb-8 border border-yellow-200">
