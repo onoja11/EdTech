@@ -97,12 +97,12 @@ const submit = () => {
             <div class="flex justify-center">
                 <p class="mt-4 text-sm text-gray-600">
                     Don't have an account?
-                    <Link
+                    <a
                         :href="route('register')"
                         class="text-yellow-500 hover:text-yellow-700 font-semibold"
                     >
                         Register
-                    </Link>
+                    </A>
                 </p>
             </div>
         </form>
