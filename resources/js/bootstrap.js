@@ -1,10 +1,11 @@
 import axios from 'axios';
 window.axios = axios;
 
+window.axios.defaults.baseURL = 'https://edtech-52ei.onrender.com'; // ✅ Force HTTPS
+
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-
-// ✅ Add this for CSRF protection in POST requests
+// CSRF token setup
 const token = document.head.querySelector('meta[name="csrf-token"]');
 if (token) {
     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
