@@ -1,15 +1,4 @@
-# -------- Stage 1: Build Vue assets --------
-FROM node:20 AS node
-
-WORKDIR /var/www
-
-COPY package*.json ./
-RUN npm install
-
-COPY . .
-RUN npm run build
-
-# -------- Stage 2: Build Laravel App --------
+# Use PHP 8.2 with Composer
 FROM php:8.2-fpm
 
 # Set working directory
@@ -17,24 +6,36 @@ WORKDIR /var/www
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
-    git curl zip unzip libpng-dev libonig-dev libxml2-dev libzip-dev \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
+    build-essential \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    zip unzip \
+    curl \
+    sqlite3 \
+    libsqlite3-dev \
+    git \
+    nodejs npm \
+    && docker-php-ext-install pdo pdo_sqlite mbstring exif pcntl bcmath gd
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy Laravel files
+# Copy application code
 COPY . .
 
-# Copy built assets from Node stage
-COPY --from=node /var/www/public /var/www/public
+# Install PHP dependencies
+RUN composer install --no-dev --optimize-autoloader
 
-# Set permissions
+# Install Node dependencies and build
+RUN npm install && npm run build
+
+# Set correct permissions
 RUN chown -R www-data:www-data /var/www \
-    && chmod -R 755 /var/www/storage
+    && chmod -R 755 /var/www/storage /var/www/bootstrap/cache
 
 # Expose port
-EXPOSE 9000
+EXPOSE 8000
 
-# Start Laravel using PHP-FPM
-CMD ["php-fpm"]
+# Start Laravel app using Artisan
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
