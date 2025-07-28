@@ -19,7 +19,7 @@ defineProps({
 })
 
 const submit = () => {
-    form.post(route('register'), {
+    form.post('https://edtech-52ei.onrender.com/register', {
         onFinish: () => form.reset('password', 'password_confirmation'),
     });
 };
