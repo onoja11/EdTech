@@ -26,7 +26,7 @@ public function store(Request $request)
    
     $validated = $request->validate([
         'title' => 'required|string|max:255',
-        'content' => 'required|file|max:10248|mimes:pdf',
+        'content' => 'required|file|max:10248|mimes:pdf,docx',
         'subject' => 'required|string',
         'grade_level' => 'required|string',
     ]);
