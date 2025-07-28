@@ -78,21 +78,22 @@ const submit = () => {
             </div>
 
             <div class="mt-4 flex items-center justify-end">
-                <Link
+                <a
                     v-if="canResetPassword"
                     :href="route('password.request')"
                     class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                     Forgot your password?
-                </Link>
+                </a>
 
-                <PrimaryButton
-                    class=""
+                <button
+                    type="submit"
+                    class="ms-4 bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-500 hover:to-yellow-600 disabled:from-gray-300 disabled:to-gray-400 text-white px-8 py-3 rounded-xl transition-all duration-300 transform hover:scale-105 font-semibold text-lg shadow-lg"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
                     Log in
-                </PrimaryButton>
+                </button>
             </div>
             <div class="flex justify-center">
                 <p class="mt-4 text-sm text-gray-600">
@@ -102,7 +103,7 @@ const submit = () => {
                         class="text-yellow-500 hover:text-yellow-700 font-semibold"
                     >
                         Register
-                    </A>
+                    </a>
                 </p>
             </div>
         </form>

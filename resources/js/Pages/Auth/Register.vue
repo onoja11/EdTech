@@ -131,12 +131,12 @@ const submit = () => {
             </div>
 
             <div class="mt-4 flex items-center justify-end">
-                <Link
+                <a
                     :href="route('login')"
                     class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                     Already registered?
-                </Link>
+                </a>
 
                 <PrimaryButton
                     class="ms-4"
@@ -149,12 +149,12 @@ const submit = () => {
              <div class="flex justify-center">
                 <p class="mt-4 text-sm text-gray-600">
                     Don't have an account?
-                    <Link
+                    <a
                         :href="route('login')"
                         class="text-yellow-500 hover:text-yellow-700 font-semibold"
                     >
                         Login
-                    </Link>
+                    </a>
                 </p>
             </div>
         </form>
