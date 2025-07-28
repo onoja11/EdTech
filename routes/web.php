@@ -25,21 +25,23 @@ Route::get('/debug', function () {
 
 
 
-Route::get('/dashboard', function () {
-        $authUser = User::find(auth()->id());
-        if ($authUser->user_roles == 'teacher') {
-            $lessons=Lesson::where('created_by', auth()->id())->get();             
-            // dd($lessons);
-        }
-        else{
-            $lessons=Lesson::all(); 
-        }
-        $user_role = auth()->user()->user_roles;
-    return Inertia::render('Dashboard',[
-        'lessons' => $lessons,
+    Route::get('/dashboard', function () {
+            $authUser = User::find(auth()->id());
+            if ($authUser->user_roles == 'teacher') {
+                $lessons=Lesson::where('created_by', auth()->id())->get();             
+                // dd($lessons);
+            }
+            else{
+                $lessons=Lesson::all(); 
+            }
+            $user_role = auth()->user()->user_roles;
+        return Inertia::render('Dashboard',[
+            'lessons' => $lessons,
         'user_role' => $user_role,
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
 
     Route::get('/lessons/create', [LessonController::class, 'create'])->name('lessons.create')->middleware('staff');
     Route::post('/lessons', [LessonController::class, 'store'])->name('lessons.store')->middleware('staff');
@@ -58,7 +60,8 @@ Route::get('/dashboard', function () {
     // Route::post('/chat', ChatController::class);
 
 Route::post('/generate', [ChatController::class, 'generate']);
-
+}
+);
     
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

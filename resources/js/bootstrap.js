@@ -1,7 +1,7 @@
 import axios from 'axios';
 window.axios = axios;
 
-window.axios.defaults.baseURL = 'https://edtech-52ei.onrender.com'; // ✅ Force HTTPS
+window.axios.defaults.baseURL = 'https://edtech-52ei.onrender.com'; 
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
