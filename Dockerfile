@@ -40,4 +40,4 @@ RUN chmod -R 755 storage bootstrap/cache
 EXPOSE 8000
 
 # Automatically run key:generate and migrate before starting the app
-CMD php artisan key:generate && php artisan migrate && php artisan serve --host=0.0.0.0 --port=8000
+CMD  php artisan migrate && php artisan serve --host=0.0.0.0 --port=8000
