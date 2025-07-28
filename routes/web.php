@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\AIController;
 use App\Http\Controllers\ChatController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
