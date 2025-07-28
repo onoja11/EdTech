@@ -4,7 +4,7 @@ FROM php:8.2-fpm
 # Set working directory
 WORKDIR /var/www
 
-# Install system dependencies and PHP extensions
+# Install dependencies
 RUN apt-get update && apt-get install -y \
     libpng-dev \
     libonig-dev \
@@ -21,23 +21,23 @@ RUN apt-get update && apt-get install -y \
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy all project files into container
+# Copy all project files
 COPY . .
 
-# ✅ Create an empty SQLite database file
+# Create SQLite database file
 RUN mkdir -p database && touch database/database.sqlite
 
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Install Node and build frontend
+# Install and build frontend
 RUN npm install && npm run build
 
-# Set proper permissions
+# Set file permissions
 RUN chmod -R 755 storage bootstrap/cache
 
-# Expose the port Laravel uses
+# Expose port
 EXPOSE 8000
 
-# Run the Laravel development server
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+# Automatically run key:generate and migrate before starting the app
+CMD php artisan key:generate && php artisan migrate && php artisan serve --host=0.0.0.0 --port=8000
