@@ -19,9 +19,12 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/debug', function () {
-    return 'Laravel is working!';
+Route::get('/clear-cache', function () {
+    Artisan::call('config:clear');
+    Artisan::call('config:cache');
+    return '✅ Config cleared and cached!';
 });
+
 
 
 
