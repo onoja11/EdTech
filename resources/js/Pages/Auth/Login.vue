@@ -23,7 +23,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('login'), {
+    form.post('https://edtech-52ei.onrender.com/login', {
         onFinish: () => form.reset('password'),
     });
 };
