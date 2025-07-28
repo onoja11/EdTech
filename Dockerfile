@@ -33,7 +33,7 @@ RUN composer install --no-dev --optimize-autoloader
 # Install and build frontend
 RUN npm install && npm run build
 
-# Set file permissions
+# Set file permissions  
 RUN chmod -R 755 storage bootstrap/cache
 
 # Expose port
