@@ -19,6 +19,11 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/debug', function () {
+    return 'Laravel is working!';
+});
+
+
 
 Route::get('/dashboard', function () {
         $authUser = User::find(auth()->id());
