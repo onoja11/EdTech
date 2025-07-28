@@ -23,7 +23,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post('https://edtech-52ei.onrender.com/logins', {
+    form.post(route('login'), {
         onFinish: () => form.reset('password'),
     });
 };
@@ -80,7 +80,7 @@ const submit = () => {
             <div class="mt-4 flex items-center justify-end">
                 <Link
                     v-if="canResetPassword"
-                    :href="https://edtech-52ei.onrender.com/forgot-password"
+                    :href="route('password.request')"
                     class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                     Forgot your password?
