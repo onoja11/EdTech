@@ -3,7 +3,8 @@ window.axios = axios;
 
 window.axios.defaults.baseURL = 'https://edtech-52ei.onrender.com'; 
 
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+// window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 // CSRF token setup
 const token = document.head.querySelector('meta[name="csrf-token"]');
