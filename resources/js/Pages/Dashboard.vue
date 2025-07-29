@@ -65,8 +65,8 @@ defineProps({
       <div  class="px-4 sm:px-6 lg:px-8 -mt-8 relative z-10">
         <div class="max-w-7xl mx-auto">
           <div class="flex flex-wrap gap-4 justify-center">
-            <Link  v-if="user_role === 'teacher' || user_role === 'admin' "
-              :href="route('lessons.create')"
+            <a  v-if="user_role === 'teacher' || user_role === 'admin' "
+              :href="https://edtech-52ei.onrender.com/lessons/create"
               class="group bg-white hover:bg-yellow-50 border-2 border-yellow-300 hover:border-amber-400 rounded-2xl px-8 py-4 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
             >
               <div class="flex items-center space-x-3">
@@ -78,10 +78,10 @@ defineProps({
                 </div>
                 <span class="font-bold text-gray-800 text-lg">Create New Lesson</span>
               </div>
-            </Link>
+            </a>
             
-            <Link v-if="user_role === 'admin' "
-              :href="route('users.all')"
+            <a v-if="user_role === 'admin' "
+              :href="https://edtech-52ei.onrender.com/users"
               class="group bg-white hover:bg-yellow-50 border-2 border-yellow-300 hover:border-amber-400 rounded-2xl px-8 py-4 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
             >
               <div class="flex items-center space-x-3">
@@ -95,7 +95,7 @@ defineProps({
                 </div>
                 <span class="font-bold text-gray-800 text-lg">Manage Users</span>
               </div>
-            </Link>
+            </a>
           </div>
         </div>
       </div>
@@ -233,7 +233,7 @@ defineProps({
             </p>
             
             <Link v-if="user_role === 'admin' || user_role === 'teacher'" 
-                  :href="route('lessons.create')"
+                  :href="https://edtech-52ei.onrender.com/lessons/create"
                   class="inline-flex items-center bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-500 hover:to-yellow-600 text-white px-8 py-3 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
               <svg width="20" height="20" viewBox="0 0 24 24" class="mr-2">
                 <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>

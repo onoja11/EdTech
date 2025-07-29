@@ -22,11 +22,11 @@ const showingNavigationDropdown = ref(false);
                         <div class="flex">
                             <!-- Logo -->
                             <div class="flex shrink-0 items-center">
-                                <Link :href="route('dashboard')">
+                                <a :href="https://edtech-52ei.onrender.com/dashboard">
                                     <ApplicationLogo
                                         class="block h-9 w-auto fill-current text-gray-800"
                                     />
-                                </Link>
+                                </a>
                             </div>
 
                             <!-- Navigation Links -->
@@ -34,7 +34,7 @@ const showingNavigationDropdown = ref(false);
                                 class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex"
                             >
                                 <NavLink
-                                    :href="route('dashboard')"
+                                    :href="https://edtech-52ei.onrender.com/dashboard"
                                     :active="route().current('dashboard')"
                                 >
                                     Dashboard
@@ -72,12 +72,12 @@ const showingNavigationDropdown = ref(false);
 
                                     <template #content>
                                         <DropdownLink
-                                            :href="route('profile.edit')"
+                                            :href="https://edtech-52ei.onrender.com/profile"
                                         >
                                             Profile
                                         </DropdownLink>
                                         <DropdownLink
-                                            :href="route('logout')"
+                                            :href="https://edtech-52ei.onrender.com/logout"
                                             method="post"
                                             as="button"
                                         >
