@@ -29,7 +29,7 @@ const showingNavigationDropdown = ref(false);
                                 </a>
                             </div>
 
-                            <!-- Navigation Links -->
+                            <!-- Navigation Linkss -->
                             <div
                                 class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex"
                             >
