@@ -66,7 +66,7 @@ defineProps({
         <div class="max-w-7xl mx-auto">
           <div class="flex flex-wrap gap-4 justify-center">
             <a  v-if="user_role === 'teacher' || user_role === 'admin' "
-              :href="https://edtech-52ei.onrender.com/lessons/create"
+              :href="route('lessons.create')"
               class="group bg-white hover:bg-yellow-50 border-2 border-yellow-300 hover:border-amber-400 rounded-2xl px-8 py-4 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
             >
               <div class="flex items-center space-x-3">
@@ -81,7 +81,7 @@ defineProps({
             </a>
             
             <a v-if="user_role === 'admin' "
-              :href="https://edtech-52ei.onrender.com/users"
+              :href="route('users.all')"
               class="group bg-white hover:bg-yellow-50 border-2 border-yellow-300 hover:border-amber-400 rounded-2xl px-8 py-4 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
             >
               <div class="flex items-center space-x-3">
@@ -139,7 +139,7 @@ defineProps({
               :key="lesson.id"
               class="group relative"
             >
-              <Link :href="`/lessons/${lesson.id}`" class="block">
+              <a :href="`/lessons/${lesson.id}`" class="block">
                 <div class="bg-white hover:bg-gradient-to-br hover:from-yellow-50 hover:to-amber-50 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-2 border-yellow-200 hover:border-amber-300 overflow-hidden h-72">
                   
                   <!-- Card Header with Subject Badge -->
@@ -181,7 +181,7 @@ defineProps({
                   <!-- Hover Overlay -->
                   <div class="absolute inset-0 bg-gradient-to-r from-amber-400/0 to-yellow-500/0 group-hover:from-amber-400/10 group-hover:to-yellow-500/10 transition-all duration-300 rounded-3xl"></div>
                 </div>
-              </Link>
+              </a>
                 <div class="flex items-center justify-center space-x-3 mt-5" v-if="user_role == 'admin' || user_role =='teacher'">
                          <form @submit.prevent="router.delete(`/lesson/${lesson.id}/delete`)" class="inline">
                           <button
@@ -199,7 +199,7 @@ defineProps({
                           </button>
                         </form>
 
-                          <Link
+                          <a
                           :href="`/lesson/${lesson.id}/edit`"
                           class="group bg-gradient-to-r from-blue-400 to-indigo-500 hover:from-blue-500 hover:to-indigo-600 text-white p-2 rounded-lg transition-all duration-200 transform hover:scale-105 shadow-md hover:shadow-lg"
                           title="Edit User"
@@ -208,7 +208,7 @@ defineProps({
                             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="currentColor" stroke-width="2" fill="none"/>
                             <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="2" fill="none"/>
                           </svg>
-                        </Link>
+                        </a>
                     </div>
             </div>
           </div>
@@ -232,14 +232,14 @@ defineProps({
               </span>
             </p>
             
-            <Link v-if="user_role === 'admin' || user_role === 'teacher'" 
-                  :href="https://edtech-52ei.onrender.com/lessons/create"
+            <a v-if="user_role === 'admin' || user_role === 'teacher'" 
+                  :href="route('lessons.create')"
                   class="inline-flex items-center bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-500 hover:to-yellow-600 text-white px-8 py-3 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
               <svg width="20" height="20" viewBox="0 0 24 24" class="mr-2">
                 <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
               </svg>
               Create Your First Lesson
-            </Link>
+            </a>
           </div>
         </div>
       </div>
