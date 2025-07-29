@@ -22,23 +22,23 @@ const showingNavigationDropdown = ref(false);
                         <div class="flex">
                             <!-- Logo -->
                             <div class="flex shrink-0 items-center">
-                                <Link :href="route('dashboard')">
+                                <a :href="route('dashboard')">
                                     <ApplicationLogo
                                         class="block h-9 w-auto fill-current text-gray-800"
                                     />
-                                </Link>
+                                </a>
                             </div>
 
                             <!-- Navigation Links -->
                             <div
                                 class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex"
                             >
-                                <NavLink
+                                <a
                                     :href="route('dashboard')"
                                     :active="route().current('dashboard')"
                                 >
                                     Dashboard
-                                </NavLink>
+                                </a>
                             </div>
                         </div>
 
@@ -71,18 +71,20 @@ const showingNavigationDropdown = ref(false);
                                     </template>
 
                                     <template #content>
-                                        <DropdownLink
+                                        <a
+                                            class="block w-full px-4 py-2 text-start text-sm leading-5 text-gray-700 transition duration-150 ease-in-out hover:bg-gray-100 focus:bg-gray-100 focus:outline-none"
                                             :href="route('profile.edit')"
                                         >
                                             Profile
-                                        </DropdownLink>
-                                        <DropdownLink
+                                        </a>
+                                        <a
+                                        class="block w-full px-4 py-2 text-start text-sm leading-5 text
                                             :href="route('logout')"
                                             method="post"
                                             as="button"
                                         >
                                             Log Out
-                                        </DropdownLink>
+                                        </a>
                                     </template>
                                 </Dropdown>
                             </div>
@@ -164,16 +166,19 @@ const showingNavigationDropdown = ref(false);
                         </div>
 
                         <div class="mt-3 space-y-1">
-                            <ResponsiveNavLink :href="route('profile.edit')">
+                            <a 
+                            class="block w-full ps-3 pe-4 py-2 border-l-4 border-transparent text-start text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
+                            :href="route('profile.edit')">
                                 Profile
-                            </ResponsiveNavLink>
-                            <ResponsiveNavLink
+                            </a>
+                            <a
+                                class="block w-full ps-3 pe-4 py-2 border-l-4 border-transparent text-start text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
                                 :href="route('logout')"
                                 method="post"
                                 as="button"
                             >
                                 Log Out
-                            </ResponsiveNavLink>
+                            </a>
                         </div>
                     </div>
                 </div>
