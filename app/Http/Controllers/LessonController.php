@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Lesson;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
@@ -48,7 +49,13 @@ public function store(Request $request)
 
     return redirect()->route('dashboard')->with('success', 'Lesson created successfully!');
 }
-
+public function lessonNote(int $lesson){
+    $note = storage_path('app/public/storage/'.$lesson);
+    if (!File::exists($note)) {
+        abort(404);
+    }
+    return response()->file($note);
+}
 public function show(int $id)
 {
     $lessons = Lesson::findOrFail($id);
@@ -90,7 +97,7 @@ public function updateContent(Request $request, $id)
 
     if ($request->hasFile('content')) {
         $path = $request->file('content')->store('lessonNotes', 'public');
-        
+
         
         $lesson = Lesson::findOrFail($id);
         $lesson->update([

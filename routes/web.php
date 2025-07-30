@@ -26,7 +26,7 @@ Route::get('/clear-cache', function () {
     return '✅ Config cleared and cached!';
 });
 
-
+Route::get('/lessonNotes/{lesson}',[LessonController::class,'lessonNote']);
 
 
     Route::get('/dashboard', function () {
