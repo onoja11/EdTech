@@ -91,6 +91,7 @@ public function updateContent(Request $request, $id)
     if ($request->hasFile('content')) {
         $path = $request->file('content')->store('lessonNotes', 'public');
         
+        
         $lesson = Lesson::findOrFail($id);
         $lesson->update([
             'content' => $path,
